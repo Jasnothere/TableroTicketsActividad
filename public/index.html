@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesa de ayuda</title>
+  <!-- Tailwind por CDN: hace falta internet para que carguen los estilos -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="app.js" defer></script>
+</head>
+<!--
+  Esta página todavía no tiene ninguna clase de Tailwind, por eso se ve
+  tan plana. Darle forma es el nivel 0 del enunciado.
+  Puedes añadir clases y contenedores, pero no cambies los id: app.js
+  depende de ellos.
+-->
+<body class = "bg-blue-100 text-black-100 font-sans min-h-screen">
+
+  <header class = "bg-yellow-100 border-b border-gray-200 py-8 px-8 mb-8 shadow-lg rounded-b-md">
+    <h1 class = "text-4xl font-extrabold text-blue-500">Mesa de ayuda</h1>
+    <p class="text-xl font-semibold text-black-100 mt-1">Tickets de soporte de la oficina</p>
+  </header>
+
+  <main class = "max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
+
+    <!-- Formulario: crea tickets y, desde el nivel 4, también los edita -->
+    <section class = "bg-white p-6 rounded-xl shadow-lg border border-gray-200 h-fit lg:col-span-1">
+      <h2 id="titulo-formulario" class="text-xl bg-yellow-100 p-3 rounded-xl shadow-sm border-b border-gray-300">Nuevo ticket</h2>
+
+      <form id="form-ticket" novalidate>
+        
+        <label for="titulo" class="block p-2 text-sm font-semibold text-black-100">Título</label>
+        <input id="titulo" name="titulo" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+        <p id="error-titulo" class="text-xs text-red-500 mt-1"></p>
+        
+        <label for="descripcion" class="block p-2 text-sm font-semibold text-black-100">Descripción</label>
+        <textarea id="descripcion" name="descripcion" rows="3" class="w-full px-3 py-4 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all"></textarea>
+
+        <label for="solicitante" class="block p-2 text-sm font-semibold text-black-100">Solicitante</label>
+        <input id="solicitante" name="solicitante" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+        <p id="error-solicitante" class="text-xs text-red-500 mt-1"></p>
+
+        <label for="categoria" class="block p-2 text-sm font-semibold text-black-100">Categoría</label>
+        <select id="categoria" name="categoria" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+          <option value="hardware">Hardware</option>
+          <option value="software">Software</option>
+          <option value="red">Red</option>
+          <option value="accesos">Accesos</option>
+        </select>
+
+        <label for="prioridad" class="block p-2 text-sm font-semibold text-black-100">Prioridad</label>
+        <select id="prioridad" name="prioridad" class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+          <option value="baja">Baja</option>
+          <option value="media" selected>Media</option>
+          <option value="alta">Alta</option>
+        </select>
+
+        <button id="btn-guardar" type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg shadow-sm transition-colors cursor-pointer text-center">Crear ticket</button>
+        <button id="btn-cancelar" type="button" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg shadow-sm transition-colors cursor-pointer text-center" hidden>Cancelar edición</button>
+      </form>
+    </section>
+
+    <!-- Tablero -->
+    <section class = "bg-white p-6 rounded-xl shadow-lg border border-gray-200 h-fit lg:col-span-2">
+      <h2 class="text-xl bg-yellow-100 p-3 rounded-xl shadow-sm border-b border-gray-300">Tickets</h2>
+
+      <div id="resumen"></div>
+
+      <div>
+        <label for="filtro-estado" class="block p-2 text-sm font-semibold text-black-100">Estado</label>
+        <select id="filtro-estado" class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+          <option value="todos">Todos</option>
+          <option value="abierto">Abiertos</option>
+          <option value="en_progreso">En progreso</option>
+          <option value="resuelto">Resueltos</option>
+        </select>
+
+        <label for="busqueda" class="block p-2 text-sm font-semibold text-black-100">Buscar</label>
+        <input id="busqueda" type="search" placeholder="Buscar por título" class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:outline-hidden focus:ring-1 focus:ring-blue-300 focus:border-blue-400 transition-all">
+      </div>
+
+      <p id="mensaje" class="text-gray-500 text-center py-4"></p>
+
+      <div id="lista-tickets" class="space-y-4"></div>
+    </section>
+
+  </main>
+
+</body>
+</html>
